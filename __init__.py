@@ -294,7 +294,7 @@ class UV_OT_op_select_bake_type(bpy.types.Operator):
 	bl_label = "Select"
 	bl_description = "Select bake objects of this type"
 
-	select_type : bpy.props.StringProperty(default='low')
+	select_type: bpy.props.StringProperty(default='low')
 
 	@classmethod
 	def poll(cls, context):
@@ -304,22 +304,22 @@ class UV_OT_op_select_bake_type(bpy.types.Operator):
 		objects = []
 		for set in settings.sets:
 			if self.select_type == 'low':
-				objects+=set.objects_low
+				objects += set.objects_low
 			elif self.select_type == 'high':
-				objects+=set.objects_high
+				objects += set.objects_high
 			elif self.select_type == 'cage':
-				objects+=set.objects_cage
+				objects += set.objects_cage
 			elif self.select_type == 'float':
-				objects+=set.objects_float
+				objects += set.objects_float
 			elif self.select_type == 'issue' and set.has_issues:
-				objects+=set.objects_low
-				objects+=set.objects_high
-				objects+=set.objects_cage
-				objects+=set.objects_float
+				objects += set.objects_low
+				objects += set.objects_high
+				objects += set.objects_cage
+				objects += set.objects_float
 
 		bpy.ops.object.select_all(action='DESELECT')
 		for obj in objects:
-			obj.select_set( state = True, view_layer = None)
+			obj.select_set(state=True, view_layer=None)
 
 		return {'FINISHED'}
 
@@ -575,7 +575,10 @@ class TexToolsSettings(bpy.types.PropertyGroup):
 	# 	name="Save",
 	# 	description="Save the baked texture?",
 	# 	default = False)
-
+	match_by_name: BoolProperty(name="match_by_name", default=True)
+	match_by_group: BoolProperty(name="match_by_group", default=True)
+	match_by_parent: BoolProperty(name="match_by_parent", default=True)
+	match_by_modifiers: BoolProperty(name="match_by_modifiers", default=True)
 
 
 class UI_PT_Panel_Units(bpy.types.Panel):
@@ -976,6 +979,12 @@ class UI_PT_Panel_Bake(bpy.types.Panel):
 					count_types['cage']+=1
 				if len(set.objects_float) > 0:
 					count_types['float']+=1
+
+			# TODO Arrange UI
+			col.prop(context.scene.texToolsSettings, "match_by_modifiers", text="Modifiers")
+			col.row().prop(context.scene.texToolsSettings, "match_by_parent", text="Parents")
+			col.prop(context.scene.texToolsSettings, "match_by_group", text="Group")
+			col.prop(context.scene.texToolsSettings, "match_by_name", text="Names")
 
 			# Freeze Selection
 			c = row.column(align=True)

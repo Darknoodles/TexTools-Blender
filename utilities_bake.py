@@ -182,19 +182,22 @@ def restore_materials():
 
 
 def get_set_name_base(obj):
+	texToolsSettings = bpy.context.scene.texToolsSettings
 
 	def remove_digits(name):
 		# Remove blender naming digits, e.g. cube.001, cube.002,...
-		if len(name)>= 4 and name[-4] == '.' and name[-3].isdigit() and name[-2].isdigit() and name[-1].isdigit():
+		# TODO Simplify by getting index of last . and performing the check on the substring
+		if len(name) >= 4 and name[-4] == '.' and name[-3].isdigit() and name[-2].isdigit() and name[-1].isdigit():
 			return name[:-4]
 		return name
 
 	# Reference parent as base name
-	if obj.parent and obj.parent in bpy.context.selected_objects:
+
+	if texToolsSettings.match_by_parent and obj.parent and obj.parent in bpy.context.selected_objects:
 		return remove_digits(obj.parent.name).lower()
 
 	# Reference group name as base name
-	elif len(obj.users_collection) == 2:
+	elif texToolsSettings.match_by_group and len(obj.users_collection) == 2:
 		return remove_digits(obj.users_collection[0].name).lower()
 
 	# Use Object name
@@ -249,7 +252,7 @@ def get_object_type(obj):
 				return 'float'
 
 	# Detect by modifiers (Only if more than 1 object selected)
-	if len(bpy.context.selected_objects) > 1:
+	if len(bpy.context.selected_objects) > 1 and bpy.context.scene.texToolsSettings.match_by_modifiers:
 		if obj.modifiers:
 			for modifier in obj.modifiers:
 				if modifier.type == 'SUBSURF' and modifier.render_levels > 0:
