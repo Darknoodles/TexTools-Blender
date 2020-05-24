@@ -27,7 +27,10 @@ modes={
 	'ao_legacy':		ub.BakeMode('',					type='AO', 		params=["bake_samples"], engine='CYCLES'),
 	'position':			ub.BakeMode('bake_position',	type='EMIT'),
 	'curvature':		ub.BakeMode('',					type='NORMAL',	use_project=True, params=["bake_curvature_size"], composite="curvature"),
-	'wireframe':		ub.BakeMode('bake_wireframe',	type='EMIT', 	color=(0, 0, 0, 1), params=["bake_wireframe_size"])
+	'wireframe':		ub.BakeMode('bake_wireframe',	type='EMIT', 	color=(0, 0, 0, 1), params=["bake_wireframe_size"]),
+	'roughness': 		ub.BakeMode('bake_roughness', 	type='ROUGHNESS'),
+	#'metallic': 		ub.BakeMode('', 				type='METALLIC'),
+	'emissive': 		ub.BakeMode('bake_emit', 				type='EMIT'),
 }
 
 if hasattr(bpy.types,"ShaderNodeBevel"):

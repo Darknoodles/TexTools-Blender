@@ -982,9 +982,9 @@ class UI_PT_Panel_Bake(bpy.types.Panel):
 
 			# TODO Arrange UI
 			col.prop(context.scene.texToolsSettings, "match_by_modifiers", text="Modifiers")
-			col.row().prop(context.scene.texToolsSettings, "match_by_parent", text="Parents")
-			col.prop(context.scene.texToolsSettings, "match_by_group", text="Group")
-			col.prop(context.scene.texToolsSettings, "match_by_name", text="Names")
+			col.prop(context.scene.texToolsSettings, "match_by_parent", text="Parents")
+			# col.prop(context.scene.texToolsSettings, "match_by_group", text="Group")
+			# col.prop(context.scene.texToolsSettings, "match_by_name", text="Names")
 
 			# Freeze Selection
 			c = row.column(align=True)

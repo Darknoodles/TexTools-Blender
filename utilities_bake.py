@@ -32,7 +32,15 @@ class BakeMode:
 	use_project = False				#Bake projected?
 	params = []						#UI Parameters from scene settings
 
-	def __init__(self, material="", type='EMIT', normal_space='TANGENT', setVColor=None, color= (0.23, 0.23, 0.23, 1), engine='CYCLES', params = [], composite=None, use_project=False):
+	def __init__(self, material="",
+				 type='EMIT',
+				 normal_space='TANGENT',
+				 setVColor=None,
+				 color=(0.23, 0.23, 0.23, 1),
+				 engine='CYCLES',
+				 params = [],
+				 composite=None,
+				 use_project=False):
 		self.material = material
 		self.type = type
 		self.normal_space = normal_space
